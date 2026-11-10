@@ -32,6 +32,8 @@ form.addEventListener('submit', event => {
   } catch (error) {
     status(error.message, true);
   }
+  input.focus();
+  input.setSelectionRange(input.value.length, input.value.length);
 });
 
 form.addEventListener('click', event => {
@@ -53,6 +55,11 @@ form.addEventListener('click', event => {
   input.focus();
 });
 
+input.addEventListener('beforeinput', event => {
+  if (justCalculated && event.inputType === 'insertText' && /^[\d.(]$/.test(event.data ?? '')) {
+    input.value = '';
+  }
+});
 input.addEventListener('input', () => { justCalculated = false; status('Press enter or = to calculate.'); });
 input.addEventListener('keydown', event => {
   if (event.key === 'Escape') {
