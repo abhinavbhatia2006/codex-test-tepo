@@ -13,7 +13,8 @@ for (const [expression, expected] of [
 }
 
 for (const expression of ['', '1 / 0', '0 / 0', '2 +', '(2 + 3', '2 3',
-  '2 ** 3', '1..2', 'alert(1)', 'Infinity', '1e309', '1e308 * 10', '2(3)']) {
+  '2 ** 3', '1..2', 'alert(1)', 'Infinity', '1e309', '1e308 * 10', '2(3)',
+  '1 / (1e308 * 10)', '1 / (1e308 + 1e308)']) {
   test(`rejects invalid input ${JSON.stringify(expression)}`, () => {
     assert.throws(() => calculate(expression), /expression|zero|large|finite|number|parenthes/i);
   });

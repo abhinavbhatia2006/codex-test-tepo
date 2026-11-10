@@ -31,6 +31,7 @@ export function calculate(expression) {
       const right = primary();
       if (operator === '/' && right === 0) throw new Error('Cannot divide by zero.');
       value = operator === '*' ? value * right : value / right;
+      if (!Number.isFinite(value)) throw new Error('Intermediate result is too large.');
     }
     return value;
   }
@@ -40,6 +41,7 @@ export function calculate(expression) {
       const operator = tokens[position++];
       const right = product();
       value = operator === '+' ? value + right : value - right;
+      if (!Number.isFinite(value)) throw new Error('Intermediate result is too large.');
     }
     return value;
   }
